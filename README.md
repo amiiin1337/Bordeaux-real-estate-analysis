@@ -1,74 +1,76 @@
 # 🏠 Bordeaux Real Estate Analysis
 
-**Analyse et Visualisation de l'Immobilier à Bordeaux (2020-2025)**
+**Real Estate Analysis and Visualization in Bordeaux (2024)**
 
-Un projet d'analyse de données immobilières basé sur les données DVF (Demandes de Valeurs Foncières) du gouvernement français, avec un focus sur la métropole bordelaise.
+A real estate data analysis project based on DVF (Demandes de Valeurs Foncières) data from the French government, focusing on the Bordeaux metropolitan area.
 
-## 🎯 Objectifs du Projet
+## 🎯 Project Goals
 
-- Analyser l'évolution des prix immobiliers dans la région bordelaise
-- Identifier les tendances par quartier et par type de bien
-- Créer des visualisations claires et informatives
-- Pratiquer le cycle complet d'un projet Data Science (de la donnée brute au résultat)
+- Analyze real estate price trends in the Bordeaux region
+- Identify patterns by neighborhood and property type
+- Create clear and informative visualizations
+- Practice the complete Data Science project cycle (from raw data to results)
 
-## 📊 Source des Données
+## 📊 Data Source
 
-Les données proviennent de la base officielle **DVF (Demandes de Valeurs Foncières)** :
-- Source : [data.gouv.fr](https://files.data.gouv.fr/geo-dvf/latest/csv/)
-- Périmètre : Département de la Gironde (33)
-- Période : 2020-2025
+Data comes from the official **DVF (Demandes de Valeurs Foncières)** database:
+- Source: [data.gouv.fr](https://files.data.gouv.fr/geo-dvf/latest/csv/)
+- Scope: Gironde Department (33)
+- Period: 2024
 
-## 🚀 Installation et Utilisation
+## 🚀 Installation and Usage
 
-### Prérequis
+### Prerequisites
 ```bash
 python 3.8+
 pandas
 matplotlib
 seaborn
+requests
 ```
 
-### Installation des dépendances
+### Install Dependencies
 ```bash
-pip install pandas matplotlib seaborn jupyter
+pip install pandas matplotlib seaborn jupyter requests
 ```
 
-### Téléchargement des données
-1. Aller sur https://files.data.gouv.fr/geo-dvf/latest/csv/
-2. Télécharger le fichier le plus récent (ex: `2024.csv`)
-3. Placer le fichier dans le dossier du projet
+### Download Data
+The script automatically downloads the data on first run. Alternatively:
+1. Go to https://files.data.gouv.fr/geo-dvf/latest/csv/2024/departements/
+2. Download `33.csv.gz` (Gironde department)
+3. Place the file in the project folder
 
-### Lancement de l'analyse
+### Run Analysis
 ```bash
 python analysis.py
 ```
 
 ## 📅 Roadmap
 
-### ✅ Sprint 1 (Semaine 1-2) - EN COURS
-- [x] Configuration du repository
-- [x] Téléchargement des données DVF
-- [x] Chargement et filtrage des données
-- [x] Exploration initiale du dataset
-- [x] **Résultat** : 11,660 transactions immobilières à Bordeaux chargées
-- [ ] Nettoyage des données (filtrer Ventes, Maison/Appartement)
-- [ ] Feature engineering (prix au m²)
-- [ ] Gestion des outliers
+### ✅ Sprint 1 (Week 1-2) - IN PROGRESS
+- [x] Repository setup
+- [x] DVF data download
+- [x] Data loading and filtering
+- [x] Initial dataset exploration
+- [x] **Result**: 11,660 real estate transactions in Bordeaux loaded
+- [ ] Data cleaning (filter sales, houses/apartments)
+- [ ] Feature engineering (price per sqm)
+- [ ] Outlier management
 
-### 📋 Sprint 2 (Semaine 3-4)
-- [ ] Nettoyage des données
-- [ ] Création de visualisations
-- [ ] Analyse des prix par quartier
+### 📋 Sprint 2 (Week 3-4)
+- [ ] Data cleaning
+- [ ] Create visualizations
+- [ ] Price analysis by neighborhood
 
-### 🎨 Sprint 3 (Mois 2)
-- [ ] Dashboard interactif
-- [ ] Documentation finale
-- [ ] Déploiement
+### 🎨 Sprint 3 (Month 2)
+- [ ] Interactive dashboard
+- [ ] Final documentation
+- [ ] Deployment
 
-## 👨‍💻 Auteur
+## 👨‍💻 Author
 
-Projet réalisé dans le cadre du Master Informatique parcours IA - Université de Bordeaux
+Project completed as part of the Master's in Computer Science (AI track) - University of Bordeaux
 
 ## 📝 License
 
-Ce projet utilise des données publiques du gouvernement français.
+This project uses public data from the French government.

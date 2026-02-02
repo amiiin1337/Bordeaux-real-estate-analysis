@@ -27,7 +27,7 @@ wheels/
 .ipynb_checkpoints
 *.ipynb_checkpoints/
 
-# Data files (IMPORTANT: don't push large CSV files to GitHub)
+# Data files (To not push large files to github)
 *.csv
 *.xlsx
 *.xls

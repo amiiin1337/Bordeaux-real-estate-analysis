@@ -4,28 +4,76 @@ Data Loading and Initial Exploration
 """
 
 import pandas as pd
+import requests
+import gzip
+import shutil
+from pathlib import Path
 
-def load_and_filter_data(input_file='33.csv', output_file='bordeaux_data.csv'):
+def download_data(url, output_file):
+    """
+    Download and extract compressed CSV file
+    
+    Args:
+        url: URL to download
+        output_file: Path to save extracted file
+    """
+    
+    print(f"Downloading data from {url}")
+    
+    try:
+        response = requests.get(url, stream=True)
+        response.raise_for_status()
+        
+        gz_file = output_file + '.gz'
+        
+        # Download compressed file
+        with open(gz_file, 'wb') as f:
+            for chunk in response.iter_content(chunk_size=8192):
+                f.write(chunk)
+        
+        print(f"Download complete. Extracting...")
+        
+        # Extract gzip file
+        with gzip.open(gz_file, 'rb') as f_in:
+            with open(output_file, 'wb') as f_out:
+                shutil.copyfileobj(f_in, f_out)
+        
+        # Remove compressed file
+        Path(gz_file).unlink()
+        
+        print(f"Extraction complete: {output_file}")
+        
+    except Exception as e:
+        print(f"Error downloading file: {e}")
+        raise
+
+def load_and_filter_data(input_file='33.csv', output_file='bordeaux_data.csv', auto_download=True):
     """
     Load DVF dataset and filter for Bordeaux city
     
     Args:
         input_file: Path to raw DVF CSV file
         output_file: Path to save filtered dataset
+        auto_download: Automatically download if file not found
     """
+    
+    # Check if file exists, download if needed
+    if not Path(input_file).exists():
+        if auto_download:
+            url = 'https://files.data.gouv.fr/geo-dvf/latest/csv/2024/departements/33.csv.gz'
+            print(f"File not found. Downloading from data.gouv.fr...")
+            download_data(url, input_file)
+        else:
+            print(f"Error: File '{input_file}' not found")
+            print("Download from: https://files.data.gouv.fr/geo-dvf/latest/csv/")
+            return
     
     # Load data
     print("Loading data...")
     print(f"Source file: {input_file}")
     
-    try:
-        df = pd.read_csv(input_file, low_memory=False)
-        print(f"Loaded successfully: {len(df):,} rows, {len(df.columns)} columns")
-        
-    except FileNotFoundError:
-        print(f"Error: File '{input_file}' not found")
-        print("Download from: https://files.data.gouv.fr/geo-dvf/latest/csv/")
-        return
+    df = pd.read_csv(input_file, low_memory=False)
+    print(f"Loaded successfully: {len(df):,} rows, {len(df.columns)} columns")
     
     # Display available columns
     print("\nAvailable columns:")
@@ -36,7 +84,6 @@ def load_and_filter_data(input_file='33.csv', output_file='bordeaux_data.csv'):
     print(f"\nFiltering for Bordeaux...")
     
     if 'code_commune' in df.columns:
-        # Convert to string for reliable comparison
         df['code_commune'] = df['code_commune'].astype(str)
         df_bordeaux = df[df['code_commune'] == '33063']
         print(f"Found {len(df_bordeaux):,} sales in Bordeaux")
@@ -100,5 +147,5 @@ if __name__ == "__main__":
     print("   BORDEAUX REAL ESTATE ANALYSIS - SPRINT 1")
     print("=" * 60)
     print()
-    
+
     load_and_filter_data()
