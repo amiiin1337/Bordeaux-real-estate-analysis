@@ -17,7 +17,7 @@ def clean_data(input_file='bordeaux_data.csv', output_file='bordeaux_clean.csv')
 
     print(f"Original shape: {df.shape}")
 
-    # 1. Filter "Business"
+    # 1) filter "Business"
     print("\n1. Applying filters...")
     
     # Keep only 'Vente'
@@ -32,7 +32,7 @@ def clean_data(input_file='bordeaux_data.csv', output_file='bordeaux_clean.csv')
     df_clean = df_clean.dropna(subset=['valeur_fonciere'])
     print(f"   - After dropping missing prices: {len(df_clean)}")
 
-    # 2. Select Columns
+    # 2) Select Columns
     cols_to_keep = [
         'id_mutation', 'date_mutation', 'valeur_fonciere', 
         'type_local', 'code_postal', 'nom_commune', 
@@ -43,7 +43,7 @@ def clean_data(input_file='bordeaux_data.csv', output_file='bordeaux_clean.csv')
     cols_to_keep = [c for c in cols_to_keep if c in df_clean.columns]
     df_clean = df_clean[cols_to_keep]
 
-    # 3. Deduplication Logic (Crucial!)
+    # 3) Deduplication Logic (Crucial!)
     # We must be careful here. 
     # If a house has 2 rows (House + Garden), usually only the House row has surface_reelle_bati.
     # The price is on both.
@@ -68,7 +68,7 @@ def clean_data(input_file='bordeaux_data.csv', output_file='bordeaux_clean.csv')
     df_grouped = df_clean.groupby('id_mutation').agg(agg_rules).reset_index()
     print(f"   - Grouped into unique transactions: {len(df_grouped)}")
 
-    # 4. Feature Engineering
+    # 4) Feature Engineering
     print("\n3. Feature Engineering...")
     
     # Price per sqm
@@ -78,7 +78,7 @@ def clean_data(input_file='bordeaux_data.csv', output_file='bordeaux_clean.csv')
     
     print(f"   - Calculated Price/m² (removed 0 surface rows): {len(df_grouped)}")
 
-    # 5. Outlier Removal (Business Logic from Taches.md)
+    # 5) Outlier Removal (Business Logic from Taches.md)
     print("\n4. Removing Outliers...")
     print(f"   - Price/m² constraints: 500€ < p < 15,000€")
     
@@ -90,7 +90,7 @@ def clean_data(input_file='bordeaux_data.csv', output_file='bordeaux_clean.csv')
     removed = initial_count - len(df_final)
     print(f"   - Removed {removed} outliers")
 
-    # 6. Save
+    # 6) Save
     print(f"\nSaving to {output_file}...")
     df_final.to_csv(output_file, index=False)
     print(f"Done! Final dataset shape: {df_final.shape}")

@@ -37,6 +37,11 @@ def inspect_data(file_path):
         print("\nnumeric stats:")
         print(df[numeric_cols].describe())
 
+        # correlation analysis (price vs surface)
+        print("\ncorrelation analysis (price vs surface):")
+        corr = df[['valeur_fonciere', 'surface_reelle_bati']].corr()
+        print(f"pearson correlation: {corr.iloc[0, 1]:.4f}")
+
         # check for duplicates (id_mutation) purely
         print(f"\nunique mutations: {df['id_mutation'].nunique()}")
         
