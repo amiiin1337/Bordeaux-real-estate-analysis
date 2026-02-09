@@ -53,16 +53,16 @@ python analysis.py
 
 ## 📅 Roadmap
 
-### ✅ Sprint 1 (Week 1-2) - IN PROGRESS
+### ✅ Sprint 1 (Week 1-2) - COMPLETED
 
 - [X] Repository setup
 - [X] DVF data download
 - [X] Data loading and filtering
 - [X] Initial dataset exploration
 - [X] **Result**: 11,660 real estate transactions in Bordeaux loaded
-- [ ] Data cleaning (filter sales, houses/apartments)
-- [ ] Feature engineering (price per sqm)
-- [ ] Outlier management
+- [X] Data cleaning (filter sales, houses/apartments)
+- [X] Feature engineering (price per sqm)
+- [X] Outlier management
 
 ### 📋 Sprint 2 (Week 3-4)
 
